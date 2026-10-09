@@ -1,0 +1,22 @@
+name: CD Pipeline - Production Deployment
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  deploy-status:
+    name: Production Release Readiness
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deployment Verification Log
+        run: |
+          echo "Nova@Gen Technologies Production Pipeline Triggered."
+          echo "Commit: ${{ github.sha }}"
+          echo "Branch: ${{ github.ref_name }}"
