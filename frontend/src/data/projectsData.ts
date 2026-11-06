@@ -25,7 +25,8 @@ export const projectsData: Project[] = [
     ],
     previewGradient: 'from-blue-600/30 to-indigo-900/40',
     iconName: 'Building2',
-    metricsLabel: '98/100 Lighthouse Performance'
+    metricsLabel: '98/100 Lighthouse Performance',
+    imageUrl: '/project-corporate.jpg'
   },
   {
     id: 'proj-ecommerce-platform',
@@ -51,7 +52,8 @@ export const projectsData: Project[] = [
     ],
     previewGradient: 'from-cyan-600/30 to-blue-900/40',
     iconName: 'ShoppingCart',
-    metricsLabel: 'Instant Filter & Reactive Cart'
+    metricsLabel: 'Instant Filter & Reactive Cart',
+    imageUrl: '/project-ecommerce.jpg'
   },
   {
     id: 'proj-task-management',
@@ -77,7 +79,8 @@ export const projectsData: Project[] = [
     ],
     previewGradient: 'from-indigo-600/30 to-purple-900/40',
     iconName: 'KanbanSquare',
-    metricsLabel: 'Agile Kanban & Sprint Hub'
+    metricsLabel: 'Agile Kanban & Sprint Hub',
+    imageUrl: '/project-taskflow.jpg'
   },
   {
     id: 'proj-healthcare-system',
@@ -103,6 +106,7 @@ export const projectsData: Project[] = [
     ],
     previewGradient: 'from-emerald-600/30 to-teal-900/40',
     iconName: 'Activity',
-    metricsLabel: 'Secure Clinic & Patient Portal'
+    metricsLabel: 'Secure Clinic & Patient Portal',
+    imageUrl: '/project-healthcare.jpg'
   }
 ];

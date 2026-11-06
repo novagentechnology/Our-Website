@@ -211,7 +211,7 @@ export const ContactForm: React.FC = () => {
               className={`w-full px-4 py-3 text-sm rounded-lg border bg-slate-50/50 text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 transition-all ${
                 errors.fullName
                   ? 'border-rose-400 focus:ring-rose-400 focus:border-rose-400'
-                  : 'border-slate-300 focus:ring-[#6366F1] focus:border-[#6366F1]'
+                  : 'border-slate-300 focus:ring-[#0865F5] focus:border-[#0865F5]'
               }`}
             />
             {errors.fullName && (
@@ -235,7 +235,7 @@ export const ContactForm: React.FC = () => {
               className={`w-full px-4 py-3 text-sm rounded-lg border bg-slate-50/50 text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 transition-all ${
                 errors.email
                   ? 'border-rose-400 focus:ring-rose-400 focus:border-rose-400'
-                  : 'border-slate-300 focus:ring-[#6366F1] focus:border-[#6366F1]'
+                  : 'border-slate-300 focus:ring-[#0865F5] focus:border-[#0865F5]'
               }`}
             />
             {errors.email && (
@@ -341,7 +341,7 @@ export const ContactForm: React.FC = () => {
             className={`w-full px-4 py-3 text-sm rounded-lg border bg-slate-50/50 text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 transition-all ${
               errors.projectDescription
                 ? 'border-rose-400 focus:ring-rose-400 focus:border-rose-400'
-                : 'border-slate-300 focus:ring-[#6366F1] focus:border-[#6366F1]'
+                : 'border-slate-300 focus:ring-[#0865F5] focus:border-[#0865F5]'
             }`}
           ></textarea>
           {errors.projectDescription && (
@@ -364,7 +364,7 @@ export const ContactForm: React.FC = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-lg bg-[#6366F1] text-white font-semibold text-sm hover:bg-[#4F46E5] focus:outline-none focus:ring-2 focus:ring-[#6366F1] focus:ring-offset-2 disabled:opacity-60 transition-all shadow-md shadow-indigo-500/25"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-[3px] bg-[#0865F5] text-white font-semibold text-xs uppercase tracking-wider hover:bg-[#0052D6] focus:outline-none focus:ring-2 focus:ring-[#0865F5] focus:ring-offset-2 disabled:opacity-60 transition-all shadow-md shadow-blue-500/25"
           >
             {isSubmitting ? (
               <>

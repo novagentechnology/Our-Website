@@ -16,4 +16,5 @@ export interface Project {
   previewGradient: string;
   iconName: string;
   metricsLabel?: string;
+  imageUrl?: string;
 }

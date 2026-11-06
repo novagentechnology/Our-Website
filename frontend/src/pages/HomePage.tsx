@@ -1,313 +1,498 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   ArrowRight, 
-  Sparkles, 
-  Code2, 
-  Shield, 
-  Zap, 
+  Play, 
+  X,
+  Network, 
   Users, 
-  Layers, 
-  Activity,
-  Cpu,
-  MonitorSmartphone
+  ShieldCheck, 
+  CheckCircle2
 } from 'lucide-react';
-import { Button } from '../components/Button';
-import { SectionHeader } from '../components/SectionHeader';
-import { ServiceCard } from '../components/ServiceCard';
-import { ProjectCard } from '../components/ProjectCard';
-import { ProjectModal } from '../components/ProjectModal';
-import { ProcessTimeline } from '../components/ProcessTimeline';
-import { servicesData } from '../data/servicesData';
-import { projectsData } from '../data/projectsData';
-import type { Project } from '../types/project';
+import { Navbar } from '../components/Navbar';
 
 export const HomePage: React.FC = () => {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-
-  const featuredServices = servicesData.slice(0, 3);
-  const featuredProjects = projectsData.slice(0, 3);
+  const [isStoryModalOpen, setIsStoryModalOpen] = useState(false);
 
   return (
-    <div className="space-y-24 md:space-y-32 pb-20">
+    <div className="bg-white">
       
-      {/* 1. HERO SECTION */}
-      <section className="relative bg-[#0B1020] text-white pt-12 pb-24 md:pt-20 md:pb-32 overflow-hidden">
-        {/* Subtle grid background */}
-        <div className="absolute inset-0 bg-grid-pattern opacity-25"></div>
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-tr from-[#6366F1]/20 via-[#22D3EE]/15 to-transparent blur-3xl rounded-full pointer-events-none"></div>
+      {/* ========================================================= */}
+      {/* B. HERO WITH OVERLAY NAVIGATION                           */}
+      {/* ========================================================= */}
+      <section className="relative w-full bg-[#090F1E] text-white min-h-[660px] lg:min-h-[710px] flex flex-col justify-between overflow-hidden">
+        
+        {/* Full-width photograph of IT/business team around conference table */}
+        <img
+          src="/it-hero-banner.jpg"
+          alt="Diverse business and IT team collaborating around a conference table in a modern office"
+          className="absolute inset-0 w-full h-full object-cover object-center select-none"
+        />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-            
-            {/* Left Column: Hero Text & CTAs */}
-            <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-800/80 border border-slate-700 text-xs font-medium text-[#22D3EE] backdrop-blur-sm">
-                <Sparkles className="w-3.5 h-3.5 text-[#22D3EE]" />
-                <span>Building Digital Solutions for Tomorrow</span>
-              </div>
+        {/* Balanced Dark Navy & Blue Overlay allowing the conference room and map to remain clearly visible */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(135deg, rgba(9, 15, 30, 0.78) 0%, rgba(9, 15, 30, 0.60) 55%, rgba(8, 101, 245, 0.30) 100%)'
+          }}
+        />
 
-              <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.15]">
-                We Build Digital Experiences That{' '}
-                <span className="bg-gradient-to-r from-[#6366F1] via-[#818CF8] to-[#22D3EE] bg-clip-text text-transparent">
-                  Drive Growth.
-                </span>
-              </h1>
+        {/* Top: Overlay Navigation inside the hero image */}
+        <div className="relative z-20 w-full">
+          <Navbar transparent={true} />
+        </div>
 
-              <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                From modern websites to custom software applications, Nova@Gen Technologies helps businesses turn ideas into practical, reliable, and scalable digital solutions.
-              </p>
+        {/* Center: Hero Content */}
+        <div className="relative z-10 max-w-[1160px] w-full mx-auto px-4 sm:px-6 pt-10 pb-16 my-auto text-center">
+          {/* Eyebrow */}
+          <div className="text-[11px] sm:text-xs font-bold tracking-[0.25em] uppercase text-white/90 mb-4 select-none">
+            SUCCESS YOUR BUSINESS
+          </div>
 
-              <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                <Button
-                  to="/portfolio"
-                  variant="primary"
-                  size="lg"
-                  icon={<ArrowRight className="w-4 h-4" />}
-                >
-                  Explore Our Work
-                </Button>
-                <Button
-                  to="/contact"
-                  variant="outline"
-                  size="lg"
-                  className="text-white border-slate-700 bg-slate-900/60 hover:bg-slate-800 hover:text-white"
-                >
-                  Discuss Your Project
-                </Button>
-              </div>
+          {/* Main Heading (constrained to 2 lines on desktop) */}
+          <h1 className="text-3xl sm:text-5xl lg:text-[56px] font-extrabold text-white leading-[1.18] tracking-tight max-w-3xl mx-auto mb-8">
+            Excellent IT services for<br className="hidden sm:inline" /> your success
+          </h1>
 
-              {/* Trust Badges Bar */}
-              <div className="pt-8 border-t border-slate-800/80 grid grid-cols-3 gap-4 text-center lg:text-left max-w-lg mx-auto lg:mx-0">
-                <div>
-                  <div className="text-lg sm:text-xl font-bold text-white flex items-center justify-center lg:justify-start gap-1">
-                    <Zap className="w-4 h-4 text-[#22D3EE]" /> High Speed
-                  </div>
-                  <div className="text-xs text-slate-400 mt-0.5">Optimized Performance</div>
-                </div>
-                <div>
-                  <div className="text-lg sm:text-xl font-bold text-white flex items-center justify-center lg:justify-start gap-1">
-                    <Shield className="w-4 h-4 text-[#6366F1]" /> Clean Code
-                  </div>
-                  <div className="text-xs text-slate-400 mt-0.5">Maintainable Architecture</div>
-                </div>
-                <div>
-                  <div className="text-lg sm:text-xl font-bold text-white flex items-center justify-center lg:justify-start gap-1">
-                    <MonitorSmartphone className="w-4 h-4 text-[#22D3EE]" /> Responsive
-                  </div>
-                  <div className="text-xs text-slate-400 mt-0.5">Mobile-First Quality</div>
-                </div>
-              </div>
-            </div>
+          {/* Dual Action Buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4">
+            <Link
+              to="/contact"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-[#0865F5] hover:bg-[#0052D6] text-white text-xs sm:text-[13px] font-semibold uppercase tracking-wider rounded-[3px] shadow-lg shadow-blue-600/30 transition-all duration-200 group active:translate-y-0.5"
+            >
+              <span>GET STARTED</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
 
-            {/* Right Column: Sophisticated 3D Logo & Tech Interface Visual */}
-            <div className="lg:col-span-5 relative">
-              <div className="relative mx-auto max-w-md lg:max-w-none rounded-2xl bg-gradient-to-b from-slate-800/80 to-slate-900/95 border border-slate-700/80 p-5 shadow-2xl backdrop-blur-md space-y-4">
-                
-                {/* 3D Office Wall Brand Logo Frame (Uncropped) */}
-                <div className="rounded-xl overflow-hidden border border-slate-700/60 shadow-lg bg-black/40 relative group">
-                  <img
-                    src="/brand-mockup.jpg"
-                    alt="Nova@Gen Technologies 3D Brand Emblem"
-                    className="w-full h-56 sm:h-64 object-cover object-center group-hover:scale-105 transition-transform duration-500 select-none"
-                  />
-                  <div className="absolute bottom-2.5 right-2.5 px-2.5 py-1 rounded-md bg-[#0B1020]/85 backdrop-blur-md border border-cyan-400/30 text-[10px] font-mono text-cyan-300 font-semibold">
-                    Official Brand Emblem
-                  </div>
-                </div>
-
-                {/* Micro tech dashboard preview */}
-                <div className="grid grid-cols-2 gap-2.5">
-                  <div className="p-3 rounded-lg bg-slate-800/90 border border-slate-700/60">
-                    <div className="text-[10px] text-slate-400 uppercase font-semibold flex items-center justify-between">
-                      API Health <Activity className="w-3 h-3 text-emerald-400" />
-                    </div>
-                    <div className="text-base font-bold text-white mt-1">99.9% Uptime</div>
-                    <div className="text-[10px] text-emerald-400 mt-0.5">REST Services Active</div>
-                  </div>
-                  <div className="p-3 rounded-lg bg-slate-800/90 border border-slate-700/60">
-                    <div className="text-[10px] text-slate-400 uppercase font-semibold flex items-center justify-between">
-                      Architecture <Cpu className="w-3 h-3 text-[#22D3EE]" />
-                    </div>
-                    <div className="text-base font-bold text-white mt-1">Full-Stack</div>
-                    <div className="text-[10px] text-slate-300 mt-0.5">Spring Boot & React</div>
-                  </div>
-                </div>
-
-                {/* Floating Badge */}
-                <div className="p-2.5 rounded-lg bg-[#6366F1]/10 border border-[#6366F1]/30 flex items-center gap-2.5 text-xs text-indigo-200">
-                  <Sparkles className="w-4 h-4 text-[#22D3EE] flex-shrink-0" />
-                  <span>Custom digital systems tailored for startups & growing enterprises.</span>
-                </div>
-              </div>
-            </div>
-
+            <Link
+              to="/contact"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white hover:bg-slate-100 text-[#171B26] text-xs sm:text-[13px] font-semibold uppercase tracking-wider rounded-[3px] shadow-lg transition-all duration-200 group active:translate-y-0.5"
+            >
+              <span>CONTACT US</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-[#0865F5]" />
+            </Link>
           </div>
         </div>
-      </section>
 
-      {/* 2. SERVICES OVERVIEW SECTION */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeader
-          badge="What We Do"
-          title="Engineered Services For"
-          highlight="Modern Businesses"
-          description="We provide comprehensive software engineering, web application development, and user experience design tailored to your specific business requirements."
-        />
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuredServices.map((service, idx) => (
-            <ServiceCard key={service.id} service={service} featured={idx === 0} />
-          ))}
+        {/* Lower Left: Play Control & Story Link */}
+        <div className="relative z-10 max-w-[1160px] w-full mx-auto px-4 sm:px-6 pb-6">
+          <div className="flex items-center gap-3.5">
+            <button
+              type="button"
+              onClick={() => setIsStoryModalOpen(true)}
+              className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-[#0865F5] shadow-xl hover:scale-110 active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#090F1E] group"
+              aria-label="Play our story"
+            >
+              <Play className="w-4 h-4 fill-[#0865F5] text-[#0865F5] translate-x-0.5" />
+            </button>
+            <div className="text-left select-none">
+              <button
+                type="button"
+                onClick={() => setIsStoryModalOpen(true)}
+                className="text-sm font-bold text-white hover:text-white/90 block leading-tight text-left"
+              >
+                Watch Our Story
+              </button>
+              <span className="text-[11px] text-white/70 block mt-0.5 font-medium">
+                Subscribe Now
+              </span>
+            </div>
+          </div>
         </div>
 
-        <div className="mt-12 text-center">
-          <Button
-            to="/services"
-            variant="outline"
-            size="md"
-            icon={<ArrowRight className="w-4 h-4" />}
+        {/* Bottom Transition: Asymmetric White SVG Wave Cutting into Hero */}
+        <div className="relative w-full overflow-hidden leading-none z-10 pointer-events-none">
+          <svg
+            viewBox="0 0 1440 100"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-full h-12 sm:h-16 lg:h-20 block"
+            preserveAspectRatio="none"
           >
-            Explore All 7 Engineering Services
-          </Button>
-        </div>
-      </section>
-
-      {/* 3. FEATURED WORK / DEMO PROJECTS */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeader
-          badge="Portfolio Highlights"
-          title="Featured Solution"
-          highlight="Demonstrations"
-          description="Explore our concept implementations and technical demonstration projects highlighting our architectural standards and design craft."
-        />
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuredProjects.map((project) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              onSelect={(p) => setSelectedProject(p)}
+            {/* Wave rises at far left, dips through middle, rises slightly near right */}
+            <path
+              d="M0 40 C 320 90, 720 95, 1040 45 C 1220 15, 1360 35, 1440 25 L 1440 100 L 0 100 Z"
+              fill="#FFFFFF"
             />
-          ))}
+          </svg>
         </div>
 
-        <div className="mt-12 text-center">
-          <Button
-            to="/portfolio"
-            variant="primary"
-            size="md"
-            icon={<ArrowRight className="w-4 h-4" />}
-          >
-            View Complete Project Gallery
-          </Button>
-        </div>
       </section>
 
-      {/* 4. WHY CHOOSE NOVA@GEN TECHNOLOGIES */}
-      <section className="bg-[#0B1020] text-white py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-grid-pattern opacity-20"></div>
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            light
-            badge="Why Work With Us"
-            title="A Dedicated Approach to"
-            highlight="Software Excellence"
-            description="We build software with a focus on code clarity, modern design patterns, and client-aligned collaboration."
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-slate-900/60 rounded-2xl p-7 border border-slate-800/80 hover:border-indigo-500/40 transition-colors">
-              <div className="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mb-5 text-[#22D3EE]">
-                <Code2 className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">Modern Technology Stack</h3>
-              <p className="text-sm text-slate-300 leading-relaxed">
-                We leverage industry-proven technologies including React, TypeScript, Tailwind CSS, Spring Boot, and MongoDB to build robust, future-proof platforms.
+      {/* ========================================================= */}
+      {/* C. WHY PEOPLE CHOOSE OUR SERVICES                         */}
+      {/* ========================================================= */}
+      <section className="bg-white py-20 sm:py-24 lg:py-28">
+        <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-start">
+            
+            {/* Left Intro Column (approx 38-40%) */}
+            <div className="lg:col-span-5 pr-0 lg:pr-6">
+              <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#0865F5] block mb-2.5">
+                WHY CHOOSE US
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#171B26] leading-[1.2] mb-4">
+                Why people choose<br />our services
+              </h2>
+              <p className="text-sm leading-relaxed text-[#777B86] max-w-sm">
+                We deliver high-impact software engineering, resilient cloud architectures, and dedicated enterprise support designed to fuel sustainable growth.
               </p>
             </div>
 
-            <div className="bg-slate-900/60 rounded-2xl p-7 border border-slate-800/80 hover:border-indigo-500/40 transition-colors">
-              <div className="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mb-5 text-[#22D3EE]">
-                <Layers className="w-6 h-6" />
+            {/* Right Cards (approx 60-62%): Exactly 3 elevated cards */}
+            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-5">
+              
+              {/* Card 1: IT Solutions */}
+              <div className="bg-white rounded-[6px] p-6 text-center border border-[#EBEEF4] shadow-[0_8px_30px_rgba(20,35,65,0.055)] hover:shadow-[0_14px_35px_rgba(20,35,65,0.09)] hover:-translate-y-1 transition-all duration-300 flex flex-col items-center justify-between min-h-[250px] group">
+                <div className="w-14 h-14 rounded-full bg-[#F3F6FD] text-[#0865F5] flex items-center justify-center mb-4 group-hover:bg-[#0865F5] transition-colors duration-300 overflow-hidden p-2">
+                  <img 
+                    src="/service-icon-1.png" 
+                    alt="IT Solutions Icon" 
+                    className="w-10 h-10 object-contain group-hover:brightness-0 group-hover:invert transition-all"
+                    onError={(e) => {
+                      // Fallback to vector icon if image fails
+                      e.currentTarget.style.display = 'none';
+                    }}
+                  />
+                  <Network className="w-6 h-6 stroke-[1.75] hidden" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-[#171B26] mb-2">
+                    IT Solutions
+                  </h3>
+                  <p className="text-xs text-[#777B86] leading-relaxed mb-4">
+                    Architected web and enterprise software built with modern performance standards.
+                  </p>
+                </div>
+                <Link
+                  to="/services"
+                  className="text-[11px] font-bold text-[#0865F5] uppercase tracking-wider inline-flex items-center gap-1 hover:text-[#0052D6] transition-colors mt-auto"
+                >
+                  <span>READ DETAILS</span>
+                </Link>
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">Clean, Modular Architecture</h3>
-              <p className="text-sm text-slate-300 leading-relaxed">
-                Codebases are structured cleanly with strict separation of concerns, reusable components, and comprehensive error handling for long-term maintainability.
-              </p>
+
+              {/* Card 2: IT Consultant */}
+              <div className="bg-white rounded-[6px] p-6 text-center border border-[#EBEEF4] shadow-[0_8px_30px_rgba(20,35,65,0.055)] hover:shadow-[0_14px_35px_rgba(20,35,65,0.09)] hover:-translate-y-1 transition-all duration-300 flex flex-col items-center justify-between min-h-[250px] group">
+                <div className="w-14 h-14 rounded-full bg-[#F3F6FD] text-[#0865F5] flex items-center justify-center mb-4 group-hover:bg-[#0865F5] transition-colors duration-300 overflow-hidden p-2">
+                  <img 
+                    src="/service-icon-2.png" 
+                    alt="IT Consultant Icon" 
+                    className="w-10 h-10 object-contain group-hover:brightness-0 group-hover:invert transition-all"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                    }}
+                  />
+                  <Users className="w-6 h-6 stroke-[1.75] hidden" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-[#171B26] mb-2">
+                    IT Consultant
+                  </h3>
+                  <p className="text-xs text-[#777B86] leading-relaxed mb-4">
+                    Strategic infrastructure advisory, tech stack modernization, and scale consulting.
+                  </p>
+                </div>
+                <Link
+                  to="/services"
+                  className="text-[11px] font-bold text-[#0865F5] uppercase tracking-wider inline-flex items-center gap-1 hover:text-[#0052D6] transition-colors mt-auto"
+                >
+                  <span>READ DETAILS</span>
+                </Link>
+              </div>
+
+              {/* Card 3: Cyber Security */}
+              <div className="bg-white rounded-[6px] p-6 text-center border border-[#EBEEF4] shadow-[0_8px_30px_rgba(20,35,65,0.055)] hover:shadow-[0_14px_35px_rgba(20,35,65,0.09)] hover:-translate-y-1 transition-all duration-300 flex flex-col items-center justify-between min-h-[250px] group">
+                <div className="w-14 h-14 rounded-full bg-[#F3F6FD] text-[#0865F5] flex items-center justify-center mb-4 group-hover:bg-[#0865F5] transition-colors duration-300 overflow-hidden p-2">
+                  <img 
+                    src="/service-icon-3.png" 
+                    alt="Cyber Security Icon" 
+                    className="w-10 h-10 object-contain group-hover:brightness-0 group-hover:invert transition-all"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                    }}
+                  />
+                  <ShieldCheck className="w-6 h-6 stroke-[1.75] hidden" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-[#171B26] mb-2">
+                    Cyber Security
+                  </h3>
+                  <p className="text-xs text-[#777B86] leading-relaxed mb-4">
+                    Proactive threat detection, cloud infrastructure hardening, and data protection.
+                  </p>
+                </div>
+                <Link
+                  to="/services"
+                  className="text-[11px] font-bold text-[#0865F5] uppercase tracking-wider inline-flex items-center gap-1 hover:text-[#0052D6] transition-colors mt-auto"
+                >
+                  <span>READ DETAILS</span>
+                </Link>
+              </div>
+
             </div>
 
-            <div className="bg-slate-900/60 rounded-2xl p-7 border border-slate-800/80 hover:border-indigo-500/40 transition-colors">
-              <div className="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mb-5 text-[#22D3EE]">
-                <Users className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">Direct & Transparent Collaboration</h3>
-              <p className="text-sm text-slate-300 leading-relaxed">
-                Work directly with the software engineers building your solution. Enjoy clear milestones, proactive status communication, and transparent deliverables.
-              </p>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* 5. OUR DEVELOPMENT PROCESS */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeader
-          badge="Our Methodology"
-          title="From Concept to"
-          highlight="Working Software"
-          description="A structured, iterative engineering process that ensures predictable timelines and dependable outcomes."
+      {/* ========================================================= */}
+      {/* D. CONNECTING PEOPLE & TECHNOLOGY                         */}
+      {/* ========================================================= */}
+      <section className="bg-white py-20 sm:py-24 lg:py-28 relative overflow-hidden">
+        <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+            
+            {/* Left Visual Collage (approx 50%) */}
+            <div className="lg:col-span-6 relative pb-6 sm:pb-8">
+              
+              {/* Subtle tech circuit line pattern behind imagery */}
+              <div className="absolute -top-10 -left-10 w-72 h-72 opacity-25 pointer-events-none text-[#0865F5] select-none">
+                <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <circle cx="20" cy="20" r="4" fill="currentColor"/>
+                  <circle cx="90" cy="40" r="3" fill="currentColor"/>
+                  <circle cx="150" cy="110" r="4" fill="currentColor"/>
+                  <circle cx="50" cy="160" r="4" fill="currentColor"/>
+                  <path d="M20 20 H70 V40 H90 V90 H150 V110" strokeDasharray="3 3"/>
+                  <path d="M70 40 V160 H50"/>
+                  <circle cx="70" cy="40" r="3" fill="currentColor"/>
+                </svg>
+              </div>
+
+              {/* Main larger photo (upper/right): Real IT developer workstation with dual screens and code */}
+              <div className="w-[86%] ml-auto rounded-[8px] overflow-hidden shadow-2xl aspect-[4/3] bg-slate-100 relative z-0 border border-slate-200/80 group">
+                <img
+                  src="/it-workspace-screens.jpg"
+                  alt="Real software engineering workstation with dual screens and code"
+                  className="w-full h-full object-cover object-center select-none group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+              </div>
+
+              {/* Secondary smaller photo (lower/left, partially overlapping): Real code in IDE and developer coding */}
+              <div className="w-[54%] -mt-20 sm:-mt-24 ml-0 rounded-[8px] overflow-hidden shadow-2xl border-4 border-white aspect-[4/3] bg-slate-100 relative z-10 group">
+                <img
+                  src="/it-developer-code.jpg"
+                  alt="Live code editor in IDE on developer screen"
+                  className="w-full h-full object-cover object-center select-none group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+              </div>
+
+              {/* Floating Nova@Gen Brand Authority Stamp */}
+              <div className="absolute top-[40%] left-[48%] -translate-x-1/2 -translate-y-1/2 z-20 bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-xl shadow-2xl border border-slate-100 flex items-center gap-3 select-none hover:scale-105 transition-transform duration-300">
+                <img 
+                  src="/emblem-circle.png" 
+                  alt="Nova@Gen Emblem" 
+                  className="w-10 h-10 object-contain drop-shadow-[0_2px_8px_rgba(8,101,245,0.4)]"
+                />
+                <div className="text-left">
+                  <div className="text-xs font-black text-[#171B26] tracking-tight flex items-baseline">
+                    <span>nova</span><span className="text-[#0865F5]">@gen</span>
+                  </div>
+                  <div className="text-[9px] font-bold text-[#0865F5] uppercase tracking-wider">
+                    Technologies
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            {/* Right Text Column (approx 50%) */}
+            <div className="lg:col-span-6 space-y-6">
+              <div>
+                <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#0865F5] block mb-2.5">
+                  WHY CHOOSE US
+                </span>
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-[#171B26] leading-[1.2]">
+                  Connecting people &amp; technology
+                </h2>
+              </div>
+
+              <p className="text-sm sm:text-[15px] leading-relaxed text-[#777B86]">
+                We combine deep technical capabilities with user-centric strategies to solve complex challenges. Our dedicated engineering specialists help enterprises innovate faster, modernize workflows, and deliver transformative customer value.
+              </p>
+
+              {/* Row of two icon-and-label perks in blue outline style using extracted transparent icons */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 pb-2">
+                
+                {/* Perk 1 */}
+                <div className="flex items-center gap-3.5">
+                  <div className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0 bg-[#F3F6FD] p-1.5 border border-blue-100">
+                    <img 
+                      src="/perk-icon-1.png" 
+                      alt="Provide Skills Services" 
+                      className="w-7 h-7 object-contain"
+                    />
+                  </div>
+                  <div className="text-sm font-bold text-[#171B26] leading-snug">
+                    Provide Skills<br />Services
+                  </div>
+                </div>
+
+                {/* Perk 2 */}
+                <div className="flex items-center gap-3.5">
+                  <div className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0 bg-[#F3F6FD] p-1.5 border border-blue-100">
+                    <img 
+                      src="/perk-icon-2.png" 
+                      alt="Urgent Support for Clients" 
+                      className="w-7 h-7 object-contain"
+                    />
+                  </div>
+                  <div className="text-sm font-bold text-[#171B26] leading-snug">
+                    Urgent Support<br />for Clients
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Primary Blue Button */}
+              <div className="pt-2">
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center gap-2 px-7 py-3 bg-[#0865F5] hover:bg-[#0052D6] text-white text-xs font-semibold uppercase tracking-wider rounded-[3px] shadow-md shadow-blue-600/20 transition-all duration-200 group active:translate-y-0.5"
+                >
+                  <span>GET A QUOTE</span>
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================================= */}
+      {/* E. DIGITAL MARKETING FULL-WIDTH CTA BANNER                */}
+      {/* ========================================================= */}
+      <section className="relative w-full bg-[#090E17] text-white py-20 sm:py-24 overflow-hidden">
+        <img
+          src="/it-server-cloud.jpg"
+          alt="Cloud Server Infrastructure and Data Center"
+          className="absolute inset-0 w-full h-full object-cover object-center select-none"
+        />
+        {/* Balanced overlay allowing the IT cloud infrastructure and server lights to shine through */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(135deg, rgba(9, 14, 23, 0.85) 0%, rgba(9, 14, 23, 0.70) 55%, rgba(8, 101, 245, 0.35) 100%)'
+          }}
         />
 
-        <ProcessTimeline />
-      </section>
+        <div className="relative z-10 max-w-[1160px] mx-auto px-4 sm:px-6 text-center">
+          
+          {/* Centered Large White Headline */}
+          <h2 className="text-2xl sm:text-4xl lg:text-[42px] font-extrabold text-white leading-[1.25] max-w-2xl mx-auto mb-8">
+            It's Your Time To Grow Through<br className="hidden sm:inline" /> Digital Marketing.
+          </h2>
 
-      {/* 6. FINAL PROJECT ENQUIRY CTA BANNER */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-3xl bg-gradient-to-r from-[#0B1020] via-[#111827] to-[#161F37] border border-slate-800 p-8 sm:p-12 lg:p-16 text-center text-white overflow-hidden shadow-2xl">
-          <div className="absolute inset-0 bg-grid-pattern opacity-15"></div>
-          <div className="absolute -right-10 -bottom-10 w-72 h-72 bg-[#6366F1]/20 rounded-full blur-3xl pointer-events-none"></div>
+          {/* Dual Horizontally Aligned Blue Filled Buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 mb-14">
+            <Link
+              to="/services"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 bg-[#0865F5] hover:bg-[#0052D6] text-white text-xs font-semibold uppercase tracking-wider rounded-[3px] shadow-lg shadow-blue-600/25 transition-all duration-200 group active:translate-y-0.5"
+            >
+              <span>LEARN MORE</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            </Link>
 
-          <div className="relative z-10 max-w-2xl mx-auto space-y-6">
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 text-[#22D3EE] border border-indigo-400/30 text-xs font-semibold uppercase tracking-wider">
-              <Sparkles className="w-3.5 h-3.5" /> Start Your Journey
-            </span>
-
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-              Have an Idea for a New Website or Custom Application?
-            </h2>
-
-            <p className="text-base text-slate-300 leading-relaxed">
-              Let's connect to discuss your project requirements, technical architecture, and how Nova@Gen Technologies can help bring your digital vision to life.
-            </p>
-
-            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button
-                to="/contact"
-                variant="secondary"
-                size="lg"
-                icon={<ArrowRight className="w-4 h-4" />}
-              >
-                Discuss Your Project
-              </Button>
-              <Button
-                to="/about"
-                variant="outline"
-                size="lg"
-                className="text-white border-slate-700 bg-slate-900/60 hover:bg-slate-800 hover:text-white"
-              >
-                Learn About Our Team
-              </Button>
-            </div>
+            <Link
+              to="/contact"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 bg-[#0865F5] hover:bg-[#0052D6] text-white text-xs font-semibold uppercase tracking-wider rounded-[3px] shadow-lg shadow-blue-600/25 transition-all duration-200 group active:translate-y-0.5"
+            >
+              <span>GET STARTED</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            </Link>
           </div>
+
+          {/* Along the bottom: Horizontal list of 4 small white outlined-check icon benefits */}
+          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 pt-4 border-t border-white/10 max-w-4xl mx-auto">
+            
+            <div className="inline-flex items-center gap-2 text-white/90 text-xs sm:text-[13px] font-medium tracking-wide">
+              <CheckCircle2 className="w-4 h-4 text-white stroke-[2]" />
+              <span>Lead Generation</span>
+            </div>
+
+            <div className="inline-flex items-center gap-2 text-white/90 text-xs sm:text-[13px] font-medium tracking-wide">
+              <CheckCircle2 className="w-4 h-4 text-white stroke-[2]" />
+              <span>Recommender Systems</span>
+            </div>
+
+            <div className="inline-flex items-center gap-2 text-white/90 text-xs sm:text-[13px] font-medium tracking-wide">
+              <CheckCircle2 className="w-4 h-4 text-white stroke-[2]" />
+              <span>Sales Prediction</span>
+            </div>
+
+            <div className="inline-flex items-center gap-2 text-white/90 text-xs sm:text-[13px] font-medium tracking-wide">
+              <CheckCircle2 className="w-4 h-4 text-white stroke-[2]" />
+              <span>Try it Free</span>
+            </div>
+
+          </div>
+
         </div>
       </section>
 
-      {/* Project Detail Modal */}
-      <ProjectModal
-        project={selectedProject}
-        onClose={() => setSelectedProject(null)}
-      />
+      {/* Accessible Story Modal */}
+      {isStoryModalOpen && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="story-modal-title"
+        >
+          <div className="relative w-full max-w-2xl bg-[#090F1E] border border-white/10 rounded-lg p-6 shadow-2xl text-white">
+            <button
+              type="button"
+              onClick={() => setIsStoryModalOpen(false)}
+              className="absolute top-4 right-4 p-2 rounded-full text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+              aria-label="Close dialog"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-full bg-white/10 p-1.5 flex items-center justify-center flex-shrink-0 border border-white/15">
+                <img src="/emblem-circle.png" alt="Nova@Gen Logo" className="w-full h-full object-contain drop-shadow" />
+              </div>
+              <div>
+                <h3 id="story-modal-title" className="text-lg font-bold text-white">
+                  Our Engineering Journey
+                </h3>
+                <p className="text-xs text-slate-400">Nova@Gen Technologies</p>
+              </div>
+            </div>
+
+            <div className="aspect-video w-full rounded-md overflow-hidden bg-slate-900 border border-slate-800 flex items-center justify-center relative">
+              <img
+                src="/it-team-meeting.jpg"
+                alt="Nova@Gen story preview"
+                className="w-full h-full object-cover opacity-60 select-none"
+              />
+              <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
+                <div className="w-14 h-14 rounded-full bg-[#0865F5] text-white flex items-center justify-center shadow-lg mb-3">
+                  <Play className="w-6 h-6 fill-white translate-x-0.5" />
+                </div>
+                <p className="text-sm font-semibold text-white max-w-md">
+                  Delivering cutting-edge IT systems and engineering excellence for enterprises worldwide.
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-6 flex justify-end">
+              <button
+                type="button"
+                onClick={() => setIsStoryModalOpen(false)}
+                className="px-5 py-2 bg-[#0865F5] text-white text-xs font-semibold uppercase tracking-wider rounded-[3px] hover:bg-[#0052D6] transition-colors"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };

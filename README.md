@@ -92,7 +92,7 @@ Nova@Gen/
 
 4. **About Page (`/about`)**:
    * Company vision, mission, and core values.
-   * Two-member core engineering team profiles (**Sathu** & **Janu**).
+   * Leadership profiles: Co-Founders & CEOs (**Vijithakumarasena Sathurjan** & **Januka Karunakaran**).
    * Balanced collaboration matrix outlining responsibilities.
 
 5. **Contact Page (`/contact`)**:
@@ -168,9 +168,9 @@ To persist enquiries to MongoDB Atlas:
 
 ---
 
-## 👥 Team Collaboration (Sathu & Janu)
+## 👥 Team Collaboration (Sathurjan & Januka)
 
-| Engineering Phase | Sathu's Scope | Janu's Scope |
+| Engineering Phase | Sathurjan's Scope | Januka's Scope |
 | :--- | :--- | :--- |
 | **Phase 1: Architecture & UI Tokens** | Design tokens, color palette, responsive navbar & layout components | Project structure, route design, API contracts & TypeScript types |
 | **Phase 2: Page Development** | Homepage hero, interactive services directory, About page | Portfolio gallery, category filtering, project detail modals, Privacy page |
@@ -179,12 +179,12 @@ To persist enquiries to MongoDB Atlas:
 | **Phase 5: Testing & QA** | Responsive cross-browser audits, accessibility (WCAG AA), styling polish | JUnit slice tests, MockMvc integration testing, README & deployment docs |
 
 ### Git Branch Workflow
-* `feature/homepage` — Sathu
-* `feature/portfolio` — Janu
-* `feature/services` — Sathu
-* `feature/contact-api` — Sathu & Janu
-* `feature/contact-form` — Sathu & Janu
-* `test/integration` — Sathu & Janu
+* `feature/homepage` — Sathurjan
+* `feature/portfolio` — Januka
+* `feature/services` — Sathurjan
+* `feature/contact-api` — Sathurjan & Januka
+* `feature/contact-form` — Sathurjan & Januka
+* `test/integration` — Sathurjan & Januka
 
 ---
 

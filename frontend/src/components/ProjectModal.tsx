@@ -41,12 +41,24 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header Banner */}
-        <div className={`relative bg-gradient-to-r ${project.previewGradient} bg-[#0B1020] p-6 sm:p-8 text-white flex-shrink-0`}>
-          <div className="absolute inset-0 bg-grid-pattern opacity-20"></div>
+        <div className={`relative bg-gradient-to-r ${project.previewGradient} bg-[#090F1E] p-6 sm:p-8 text-white flex-shrink-0 overflow-hidden`}>
+          {project.imageUrl && (
+            <img
+              src={project.imageUrl}
+              alt={project.title}
+              className="absolute inset-0 w-full h-full object-cover object-center select-none"
+            />
+          )}
+          <div 
+            className="absolute inset-0"
+            style={{
+              background: 'linear-gradient(135deg, rgba(9, 15, 30, 0.88) 0%, rgba(9, 15, 30, 0.75) 60%, rgba(8, 101, 245, 0.40) 100%)'
+            }}
+          />
           
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 rounded-full bg-black/40 hover:bg-black/60 text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white"
+            className="absolute top-4 right-4 z-20 p-2 rounded-full bg-black/50 hover:bg-black/70 text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
@@ -54,12 +66,12 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
           <div className="relative z-10">
             <div className="flex flex-wrap items-center gap-2 mb-3">
-              <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-cyan-400/20 text-cyan-200 border border-cyan-400/30 uppercase tracking-wider">
+              <span className="text-xs font-semibold px-2.5 py-1 rounded-[3px] bg-blue-600/30 text-blue-200 border border-blue-400/40 uppercase tracking-wider backdrop-blur-md">
                 {project.category}
               </span>
               {project.isDemonstration && (
-                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/30 flex items-center gap-1">
-                  <AlertCircle className="w-3.5 h-3.5" /> Concept & Demonstration Project
+                <span className="text-xs font-semibold px-2.5 py-1 rounded-[3px] bg-amber-500/25 text-amber-200 border border-amber-400/40 flex items-center gap-1 backdrop-blur-md">
+                  <AlertCircle className="w-3.5 h-3.5" /> Concept &amp; Demonstration Project
                 </span>
               )}
             </div>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 interface ButtonProps {
   children: React.ReactNode;
-  variant?: 'primary' | 'secondary' | 'outline' | 'dark' | 'ghost';
+  variant?: 'primary' | 'white' | 'secondary' | 'outline' | 'dark' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
   to?: string;
   href?: string;
@@ -28,30 +28,40 @@ export const Button: React.FC<ButtonProps> = ({
   icon,
   iconPosition = 'right',
 }) => {
-  const baseStyles = 'inline-flex items-center justify-center font-medium transition-all duration-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed select-none';
+  const baseStyles = 'inline-flex items-center justify-center font-medium transition-all duration-200 rounded-[3px] focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed select-none group uppercase tracking-wider';
 
   const sizeStyles = {
-    sm: 'px-3.5 py-1.5 text-xs gap-1.5',
-    md: 'px-5 py-2.5 text-sm gap-2',
-    lg: 'px-7 py-3.5 text-base gap-2.5 font-semibold',
+    sm: 'px-3.5 py-1.5 text-[11px] gap-1.5',
+    md: 'px-6 py-2.5 text-xs gap-2 min-h-[42px]',
+    lg: 'px-7 py-3 text-xs sm:text-sm gap-2.5 font-semibold min-h-[46px]',
   };
 
   const variantStyles = {
-    primary: 'bg-[#6366F1] text-white hover:bg-[#4F46E5] focus:ring-[#6366F1] shadow-md shadow-indigo-500/20 active:translate-y-0.5',
-    secondary: 'bg-[#22D3EE] text-[#0B1020] hover:bg-[#06B6D4] font-semibold focus:ring-[#22D3EE] shadow-md shadow-cyan-500/20 active:translate-y-0.5',
-    outline: 'border border-slate-300 text-[#0B1020] hover:bg-slate-100 hover:border-slate-400 focus:ring-slate-400 bg-white/80 backdrop-blur-sm',
-    dark: 'bg-[#0B1020] text-white hover:bg-[#161F37] border border-slate-800 focus:ring-[#6366F1] shadow-md shadow-black/20',
-    ghost: 'text-slate-600 hover:text-[#0B1020] hover:bg-slate-100/70 focus:ring-slate-300',
+    primary: 'bg-[#0865F5] text-white hover:bg-[#0052D6] focus:ring-[#0865F5] shadow-md shadow-blue-500/20 active:translate-y-0.5',
+    white: 'bg-white text-[#171B26] hover:bg-slate-100 focus:ring-slate-300 shadow-md shadow-black/10 active:translate-y-0.5 font-semibold',
+    secondary: 'bg-[#F3F6FD] text-[#0865F5] hover:bg-blue-100/70 font-semibold focus:ring-[#0865F5] border border-blue-100',
+    outline: 'border border-[#EBEEF4] text-[#171B26] hover:bg-slate-50 hover:border-slate-300 focus:ring-slate-300 bg-white',
+    dark: 'bg-[#171B26] text-white hover:bg-[#090F1E] focus:ring-[#0865F5] shadow-md',
+    ghost: 'text-[#777B86] hover:text-[#171B26] hover:bg-[#F3F6FD] focus:ring-slate-300',
   };
 
   const combinedStyles = `${baseStyles} ${sizeStyles[size]} ${variantStyles[variant]} ${className}`;
 
+  const renderIcon = () => {
+    if (!icon) return null;
+    return (
+      <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">
+        {icon}
+      </span>
+    );
+  };
+
   if (to) {
     return (
       <Link to={to} className={combinedStyles}>
-        {icon && iconPosition === 'left' && icon}
-        {children}
-        {icon && iconPosition === 'right' && icon}
+        {icon && iconPosition === 'left' && renderIcon()}
+        <span>{children}</span>
+        {icon && iconPosition === 'right' && renderIcon()}
       </Link>
     );
   }
@@ -59,9 +69,9 @@ export const Button: React.FC<ButtonProps> = ({
   if (href) {
     return (
       <a href={href} target="_blank" rel="noopener noreferrer" className={combinedStyles}>
-        {icon && iconPosition === 'left' && icon}
-        {children}
-        {icon && iconPosition === 'right' && icon}
+        {icon && iconPosition === 'left' && renderIcon()}
+        <span>{children}</span>
+        {icon && iconPosition === 'right' && renderIcon()}
       </a>
     );
   }
@@ -73,9 +83,9 @@ export const Button: React.FC<ButtonProps> = ({
       disabled={disabled}
       className={combinedStyles}
     >
-      {icon && iconPosition === 'left' && icon}
-      {children}
-      {icon && iconPosition === 'right' && icon}
+      {icon && iconPosition === 'left' && renderIcon()}
+      <span>{children}</span>
+      {icon && iconPosition === 'right' && renderIcon()}
     </button>
   );
 };

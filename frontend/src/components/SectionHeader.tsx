@@ -24,24 +24,24 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
   return (
     <div className={`mb-12 md:mb-16 ${isCentered ? 'text-center max-w-3xl mx-auto' : 'max-w-2xl'} ${className}`}>
       {badge && (
-        <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-4 ${
+        <span className={`inline-block text-xs font-bold uppercase tracking-[0.2em] mb-3 ${
           light 
-            ? 'bg-indigo-500/20 text-[#22D3EE] border border-indigo-400/30' 
-            : 'bg-indigo-50 text-[#6366F1] border border-indigo-100'
+            ? 'text-[#0865F5]' 
+            : 'text-[#0865F5]'
         }`}>
           {badge}
         </span>
       )}
-      <h2 className={`text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight ${light ? 'text-white' : 'text-[#0B1020]'}`}>
+      <h2 className={`text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight ${light ? 'text-white' : 'text-[#171B26]'}`}>
         {title}{' '}
         {highlight && (
-          <span className="bg-gradient-to-r from-[#6366F1] to-[#22D3EE] bg-clip-text text-transparent">
+          <span className="text-[#0865F5]">
             {highlight}
           </span>
         )}
       </h2>
       {description && (
-        <p className={`mt-4 text-base sm:text-lg leading-relaxed ${light ? 'text-slate-300' : 'text-slate-600'}`}>
+        <p className={`mt-3 text-sm sm:text-base leading-relaxed ${light ? 'text-slate-300' : 'text-[#777B86]'}`}>
           {description}
         </p>
       )}

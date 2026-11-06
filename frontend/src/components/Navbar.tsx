@@ -1,31 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ArrowRight, Sparkles } from 'lucide-react';
-import { Button } from './Button';
+import { Menu, X, ArrowRight } from 'lucide-react';
 
-export const Navbar: React.FC = () => {
+interface NavbarProps {
+  transparent?: boolean;
+}
+
+export const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const isHome = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 40);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    setIsOpen(false);
-  }, [location.pathname]);
-
   const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Services', path: '/services' },
-    { name: 'Our Work', path: '/portfolio' },
-    { name: 'About', path: '/about' },
-    { name: 'Contact', path: '/contact' },
+    { name: 'HOME', path: '/' },
+    { name: 'ABOUT', path: '/about' },
+    { name: 'SERVICES', path: '/services' },
+    { name: 'PORTFOLIO', path: '/portfolio' },
+    { name: 'CONTACTS', path: '/contact' },
   ];
 
   const isActive = (path: string) => {
@@ -33,123 +33,106 @@ export const Navbar: React.FC = () => {
     return location.pathname.startsWith(path);
   };
 
+  const isTransparentState = (transparent || isHome) && !isScrolled;
+
+  const navBackground = isTransparentState
+    ? 'bg-transparent py-5 sm:py-6'
+    : 'bg-[#090F1E]/95 backdrop-blur-md shadow-lg border-b border-white/10 py-3.5';
+
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-[#0B1020]/90 backdrop-blur-md border-b border-slate-800/80 shadow-lg shadow-black/10 py-3.5'
-          : 'bg-[#0B1020] border-b border-slate-800/40 py-5'
-      }`}
+    <nav
+      className={`w-full transition-all duration-300 z-40 ${
+        isTransparentState ? 'relative' : 'sticky top-0'
+      } ${navBackground}`}
+      aria-label="Main Navigation"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          {/* Logo & Brand Name */}
-          <Link to="/" className="flex items-center gap-3.5 group focus:outline-none py-1">
-            <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-2xl overflow-hidden p-[2px] bg-gradient-to-tr from-[#6366F1] via-[#22D3EE] to-[#6366F1] shadow-[0_0_20px_rgba(34,211,238,0.3)] group-hover:shadow-[0_0_30px_rgba(34,211,238,0.6)] group-hover:scale-105 transition-all duration-300 flex-shrink-0">
-              <div className="w-full h-full rounded-[14px] overflow-hidden bg-[#070A14] flex items-center justify-center">
-                <img
-                  src="/emblem-hd.png"
-                  alt="Nova@Gen 3D Emblem"
-                  className="w-full h-full object-cover object-center transform scale-110 select-none"
-                />
-              </div>
-            </div>
-            <div className="flex flex-col justify-center">
-              <div className="text-2xl sm:text-3xl font-black tracking-tight text-white flex items-center leading-none">
-                <span>Nova</span>
-                <span className="text-[#22D3EE] font-black drop-shadow-[0_0_12px_rgba(34,211,238,0.6)]">@</span>
-                <span>Gen</span>
-              </div>
-              <span className="text-[11px] sm:text-xs font-extrabold text-slate-300 tracking-[0.25em] uppercase mt-1">
-                Technologies
-              </span>
+      <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
+        <div className="flex items-center justify-between h-[52px]">
+          
+          {/* Logo: Brand emblem + two-color wordmark */}
+          <Link to="/" className="flex items-center gap-2.5 group focus:outline-none">
+            <img 
+              src="/emblem-circle.png" 
+              alt="Nova@Gen Logo Emblem" 
+              className="w-8 h-8 sm:w-9 sm:h-9 object-contain drop-shadow-[0_2px_10px_rgba(8,101,245,0.45)] group-hover:scale-105 transition-transform select-none" 
+            />
+            <div className="flex items-baseline">
+              <span className="text-white font-extrabold text-2xl tracking-tight lowercase">nova</span>
+              <span className="text-[#0865F5] font-extrabold text-2xl tracking-tight lowercase">@gen</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0865F5] ml-0.5 inline-block"></span>
             </div>
           </Link>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1 lg:gap-2">
+          <div className="hidden lg:flex items-center space-x-6 xl:space-x-7">
             {navLinks.map((link) => {
               const active = isActive(link.path);
               return (
                 <Link
                   key={link.name}
                   to={link.path}
-                  className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  className={`text-[11px] font-semibold tracking-[0.14em] uppercase transition-colors duration-200 ${
                     active
-                      ? 'text-[#22D3EE] bg-slate-800/60 font-semibold'
-                      : 'text-slate-300 hover:text-white hover:bg-slate-800/30'
+                      ? 'text-[#0865F5]'
+                      : 'text-white/85 hover:text-white'
                   }`}
                 >
                   {link.name}
                 </Link>
               );
             })}
-          </nav>
+          </div>
 
-          {/* Desktop Right CTA */}
-          <div className="hidden md:flex items-center gap-3">
-            <Button
+          {/* Right Button */}
+          <div className="hidden sm:flex items-center">
+            <Link
               to="/contact"
-              variant="primary"
-              size="sm"
-              icon={<ArrowRight className="w-4 h-4" />}
+              className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#0865F5] hover:bg-[#0052D6] text-white text-[11px] font-semibold uppercase tracking-wider rounded-[3px] shadow-sm transition-all duration-200 group"
             >
-              Start a Project
-            </Button>
+              <span>GET STARTED</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            </Link>
           </div>
 
           {/* Mobile Menu Toggle Button */}
-          <div className="flex md:hidden items-center gap-2">
-            <Link
-              to="/contact"
-              className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-[#6366F1] text-white hover:bg-[#4F46E5] transition-colors"
-            >
-              Start Project
-            </Link>
-            <button
-              type="button"
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-[#6366F1]"
-              aria-label="Toggle Navigation Menu"
-            >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
-        </div>
-      </div>
+          <button
+            type="button"
+            onClick={() => setIsOpen(!isOpen)}
+            className="lg:hidden p-2 rounded-md text-white/90 hover:text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-[#0865F5]"
+            aria-expanded={isOpen}
+            aria-label="Toggle navigation menu"
+          >
+            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
 
-      {/* Mobile Navigation Drawer */}
-      {isOpen && (
-        <div className="md:hidden bg-[#0B1020]/95 backdrop-blur-xl border-b border-slate-800 px-4 pt-3 pb-6 space-y-2 animate-fadeIn">
-          {navLinks.map((link) => {
-            const active = isActive(link.path);
-            return (
+        </div>
+
+        {/* Mobile Dropdown Menu */}
+        {isOpen && (
+          <div className="lg:hidden mt-4 py-4 px-4 bg-[#090F1E] border border-white/10 rounded-lg shadow-2xl space-y-3">
+            {navLinks.map((link) => (
               <Link
                 key={link.name}
                 to={link.path}
-                className={`block px-4 py-3 rounded-lg text-base font-medium transition-colors ${
-                  active
-                    ? 'bg-[#6366F1]/20 text-[#22D3EE] font-semibold border-l-4 border-[#22D3EE]'
-                    : 'text-slate-200 hover:bg-slate-800/60 hover:text-white'
-                }`}
+                onClick={() => setIsOpen(false)}
+                className="block text-xs font-semibold tracking-wider text-white/90 hover:text-[#0865F5] py-2 border-b border-white/5 uppercase"
               >
                 {link.name}
               </Link>
-            );
-          })}
-          <div className="pt-4 border-t border-slate-800/80">
-            <Button
-              to="/contact"
-              variant="primary"
-              size="md"
-              className="w-full justify-center"
-              icon={<Sparkles className="w-4 h-4" />}
-            >
-              Discuss Your Project
-            </Button>
+            ))}
+            <div className="pt-2">
+              <Link
+                to="/contact"
+                onClick={() => setIsOpen(false)}
+                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-[#0865F5] text-white text-xs font-semibold uppercase tracking-wider rounded-[3px]"
+              >
+                <span>GET STARTED</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
           </div>
-        </div>
-      )}
-    </header>
+        )}
+      </div>
+    </nav>
   );
 };

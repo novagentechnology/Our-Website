@@ -4,7 +4,7 @@ import { ProjectModal } from '../components/ProjectModal';
 import { projectsData } from '../data/projectsData';
 import type { Project } from '../types/project';
 import { Button } from '../components/Button';
-import { ArrowRight, Info, Filter, Layers } from 'lucide-react';
+import { ArrowRight, Info } from 'lucide-react';
 
 export const PortfolioPage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
@@ -18,59 +18,70 @@ export const PortfolioPage: React.FC = () => {
   }, [selectedCategory]);
 
   return (
-    <div className="space-y-16 pb-20">
+    <div className="space-y-16 sm:space-y-20 pb-20 bg-white">
       
-      {/* Page Header Banner */}
-      <section className="bg-[#0B1020] text-white py-16 sm:py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-grid-pattern opacity-20"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/20 text-[#22D3EE] border border-indigo-400/30 text-xs font-semibold uppercase tracking-wider mb-4">
-            <Layers className="w-3.5 h-3.5" /> Technical Portfolio
+      {/* Page Header Banner with Bright Digital Systems & Architecture Visual */}
+      <section className="relative text-white py-16 sm:py-24 overflow-hidden bg-[#090F1E] min-h-[360px] flex items-center justify-center">
+        <img
+          src="/it-portfolio-banner.jpg"
+          alt="Technical Architecture & Digital Analytics Systems"
+          className="absolute inset-0 w-full h-full object-cover object-center select-none"
+        />
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(135deg, rgba(9, 15, 30, 0.72) 0%, rgba(9, 15, 30, 0.52) 55%, rgba(8, 101, 245, 0.28) 100%)'
+          }}
+        />
+        <div className="absolute inset-0 bg-tech-circuit opacity-25 pointer-events-none" />
+
+        <div className="relative z-10 max-w-[1160px] w-full mx-auto px-4 sm:px-6 text-center">
+          <span className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.25em] text-[#0865F5] bg-white/10 backdrop-blur-sm border border-white/15 px-3.5 py-1.5 rounded-[3px] inline-block mb-4 select-none">
+            TECHNICAL PORTFOLIO
           </span>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
-            Our Work & Architecture Concepts
+          <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight max-w-3xl mx-auto mb-4">
+            Our Work &amp; Architecture Concepts
           </h1>
-          <p className="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed">
-            Explore our curated project demonstrations, full-stack application blueprints, and user interface concepts showcasing our software engineering practices.
+          <p className="text-sm sm:text-base text-slate-200 leading-relaxed max-w-2xl mx-auto">
+            Explore our curated project demonstrations, full-stack application blueprints, and user interface concepts showcasing our software engineering craft.
           </p>
         </div>
       </section>
 
       {/* Demonstration Project Transparency Notice */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="p-4 sm:p-5 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-900 flex items-start gap-3.5">
-          <Info className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
-          <div className="text-xs sm:text-sm text-slate-700 leading-relaxed">
-            <span className="font-semibold text-slate-900">Demonstration & Concept Notice: </span>
-            The projects featured in this portfolio are functional architectural prototypes and demonstration concepts built by Nova@Gen Technologies to showcase full-stack capabilities, UI/UX craft, and engineering standards. They are clearly identified as concept projects.
+      <section className="max-w-[1160px] mx-auto px-4 sm:px-6">
+        <div className="p-4 sm:p-5 rounded-[4px] bg-[#F3F6FD] border border-blue-100 text-[#171B26] flex items-start gap-3.5">
+          <Info className="w-5 h-5 text-[#0865F5] flex-shrink-0 mt-0.5" />
+          <div className="text-xs sm:text-sm text-[#777B86] leading-relaxed">
+            <span className="font-semibold text-[#171B26]">Demonstration &amp; Concept Notice: </span>
+            The projects featured in this portfolio are functional architectural prototypes and demonstration concepts built by Nova@Gen Technologies to showcase full-stack capabilities, UI/UX craft, and engineering standards.
           </div>
         </div>
       </section>
 
       {/* Filter Tabs & Projects Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="max-w-[1160px] mx-auto px-4 sm:px-6">
+        
         {/* Category Filters */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
-          <div className="hidden sm:flex items-center gap-1 text-xs font-semibold text-slate-500 mr-2 uppercase tracking-wider">
-            <Filter className="w-3.5 h-3.5" /> Filter:
-          </div>
-          {categories.map((cat) => (
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
+          {categories.map((category) => (
             <button
-              key={cat}
-              onClick={() => setSelectedCategory(cat)}
-              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 ${
-                selectedCategory === cat
-                  ? 'bg-[#0B1020] text-white shadow-md'
-                  : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+              key={category}
+              type="button"
+              onClick={() => setSelectedCategory(category)}
+              className={`px-4 py-2 rounded-[3px] text-xs font-semibold tracking-wider uppercase transition-all duration-200 ${
+                selectedCategory === category
+                  ? 'bg-[#0865F5] text-white shadow-md'
+                  : 'bg-white text-[#777B86] border border-[#EBEEF4] hover:bg-slate-50 hover:text-[#171B26]'
               }`}
             >
-              {cat}
+              {category}
             </button>
           ))}
         </div>
 
-        {/* Projects Gallery */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project) => (
             <ProjectCard
               key={project.id}
@@ -80,40 +91,37 @@ export const PortfolioPage: React.FC = () => {
           ))}
         </div>
 
-        {filteredProjects.length === 0 && (
-          <div className="text-center py-16 bg-white rounded-2xl border border-slate-200">
-            <p className="text-sm text-slate-500">No demonstration projects found in this category.</p>
-          </div>
-        )}
       </section>
 
-      {/* Project Discussion CTA */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
-        <div className="bg-gradient-to-r from-[#0B1020] to-[#161F37] rounded-3xl p-8 sm:p-12 border border-slate-800 text-center text-white space-y-5">
-          <h2 className="text-2xl sm:text-3xl font-bold">
-            Need a Custom Application Built to Exact Specifications?
+      {/* Project Detail Modal */}
+      {selectedProject && (
+        <ProjectModal
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
+        />
+      )}
+
+      {/* Bottom CTA */}
+      <section className="max-w-[1160px] mx-auto px-4 sm:px-6">
+        <div className="bg-[#f8f9fc] rounded-[6px] p-8 sm:p-12 text-center border border-[#EBEEF4] space-y-4">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#171B26]">
+            Have a Specific Concept in Mind?
           </h2>
-          <p className="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto">
-            Whether you need a performant business website, an internal workflow dashboard, or an integrated REST API, we can architect and develop your solution.
+          <p className="text-sm text-[#777B86] max-w-xl mx-auto">
+            We can architect and build custom proof-of-concepts, MVPs, or full-scale web platforms based on your exact business workflow.
           </p>
-          <div>
+          <div className="pt-2">
             <Button
               to="/contact"
-              variant="secondary"
-              size="lg"
+              variant="primary"
+              size="md"
               icon={<ArrowRight className="w-4 h-4" />}
             >
-              Start a Project Discussion
+              Request a Technical Architecture Review
             </Button>
           </div>
         </div>
       </section>
-
-      {/* Modal Detail View */}
-      <ProjectModal
-        project={selectedProject}
-        onClose={() => setSelectedProject(null)}
-      />
 
     </div>
   );
